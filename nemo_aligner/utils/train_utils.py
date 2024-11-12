@@ -167,6 +167,8 @@ def clip_gradients(ptl_model, clip_val):
     if ptl_model.with_distributed_adam:
         if not ptl_model.use_mcore_dist_optim:
             grad_norm = clip_grad_norm_distributed_optimizer(ptl_model._optimizer, clip_val)
+        else:
+            grad_norm = 0
     else:
         if ptl_model.megatron_amp_O2:
             # grep fp32 master parameters for gradient clipping
